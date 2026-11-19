@@ -266,7 +266,7 @@ export function* negotiateLanes({
         ...cohortCopper,
         ...fixed,
         ...pairedCopper,
-        ...(!unit.pair
+        ...(!unit.pair && !negotiateTuning
           ? routedLanes
               .filter((t) => pairedNames.has(t.connection_name!))
               .flatMap(getCopper)
