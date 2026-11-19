@@ -1,4 +1,5 @@
 import { maximumCarrierLength } from "./route-lengths"
+import { meetsTuningMinimums, negotiateBusTuning } from "./negotiate-bus-tuning"
 import { refineRouteCandidates } from "./refine-route-candidates"
 import { routeViaWaypoint } from "./route-via-waypoint"
 import { pendingLaneCertificates } from "./pending-lane-certificates"
@@ -12,22 +13,39 @@ import { reduceOrdinaryTurns } from "./reduce-ordinary-turns"
 import { repairLaneClosures } from "./repair-lane-closures"
 import type { SimpleRouteJson, Connection, Trace, Wire } from "./types"
 
+type ConnectionName = Connection["name"]
+
+interface LaneNegotiationOptions {
+  input: SimpleRouteJson
+  connections: Connection[]
+  fixed: Copper[]
+  paired: Trace[]
+  widths: Map<ConnectionName, number>
+  reportProgress?: (pass: number, conflictingLanes: number) => void
+  terminalLayers?: ReadonlyMap<ConnectionName, string[]>
+  enableTerminalReservations?: () => boolean
+  deferRetainedSelfClearance?: boolean
+  checkReachability?: boolean
+  negotiateTuning?: boolean
+}
+
 /** Queue-based rip-up routing adapted from the reference's negotiate-fine.ts.
  * Supplied copper and generated paired corridors remain fixed. Runtime candidate
  * selection can combine earlier compatible alternatives; only complete,
  * nonoverlapping solutions are returned. Board-world mm. */
-export function* negotiateLanes(
-  input: SimpleRouteJson,
-  connections: Connection[],
-  fixed: Copper[],
-  paired: Trace[],
-  widths: Map<string, number>,
-  reportProgress?: (pass: number, conflictingLanes: number) => void,
-  terminalLayers: ReadonlyMap<string, string[]> = new Map(),
-  enableTerminalReservations: () => boolean = () => true,
+export function* negotiateLanes({
+  input,
+  connections,
+  fixed,
+  paired,
+  widths,
+  reportProgress,
+  terminalLayers = new Map(),
+  enableTerminalReservations = () => true,
   deferRetainedSelfClearance = false,
   checkReachability = false,
-): Generator<Trace[], Trace[] | null> {
+  negotiateTuning = false,
+}: LaneNegotiationOptions): Generator<Trace[], Trace[] | null> {
   const flexibleTerminals = connections.some(
     (connection) => (terminalLayers.get(connection.name)?.length ?? 1) > 1,
   )
@@ -74,6 +92,7 @@ export function* negotiateLanes(
     }
   }
   const candidates = new RouteCandidatePool(clearance, 240)
+  const tuningMinimums = new Map<ConnectionName, number>()
   const conflicts = new RouteConflictIndex()
   const unitNames = units.map((unit) => unit.connections[0].name)
   const matchingGroups = [
@@ -520,6 +539,55 @@ export function* negotiateLanes(
           point.layer = (trace.route[0] as Wire).layer
       }
     }
+    const tunedNames = new Set<ConnectionName>()
+    if (negotiateTuning) {
+      const tuning = negotiateBusTuning({
+        input,
+        paired,
+        traces: [...routed.values()],
+      })
+      for (const trace of tuning.traces) {
+        if (trace !== routed.get(trace.connection_name!)) {
+          tunedNames.add(trace.connection_name!)
+          routed.set(trace.connection_name!, trace)
+        }
+      }
+      for (const [name, target] of tuning.minimums)
+        tuningMinimums.set(
+          name,
+          Math.max(tuningMinimums.get(name) ?? 0, target),
+        )
+      if (tuningMinimums.size) {
+        for (const unit of units) {
+          if (
+            unit !== currentUnit &&
+            !unit.connections.some((c) => tuning.minimums.has(c.name))
+          )
+            continue
+          candidates.transformUnit(unit.connections[0].name, (alternatives) =>
+            meetsTuningMinimums({
+              input,
+              traces: alternatives,
+              minimums: tuningMinimums,
+            })
+              ? alternatives
+              : null,
+          )
+          const tuned = unit.connections.flatMap((c) =>
+            routed.has(c.name) ? [routed.get(c.name)!] : [],
+          )
+          if (
+            tuned.length === unit.connections.length &&
+            meetsTuningMinimums({
+              input,
+              traces: tuned,
+              minimums: tuningMinimums,
+            })
+          )
+            candidates.add(unit.connections[0].name, tuned)
+        }
+      }
+    }
     const pending = new Set<string>()
     const lanes = [...routed.values()]
     for (let a = 0; a < lanes.length; a++)
@@ -559,7 +627,8 @@ export function* negotiateLanes(
     if (pending.size) {
       for (const unit of units) {
         if (
-          unit === currentUnit ||
+          (unit === currentUnit && !tunedNames.size) ||
+          unit.connections.some((c) => tunedNames.has(c.name)) ||
           !unit.connections.some((c) => pending.has(c.name))
         )
           continue
@@ -612,7 +681,14 @@ export function* negotiateLanes(
       } finally {
         if (!step.done) generator.return(null)
       }
-      if (step.value) {
+      if (
+        step.value &&
+        meetsTuningMinimums({
+          input,
+          traces: step.value,
+          minimums: tuningMinimums,
+        })
+      ) {
         routed.clear()
         for (const trace of step.value)
           routed.set(trace.connection_name!, trace)
@@ -650,7 +726,14 @@ export function* negotiateLanes(
       } finally {
         if (!step.done) generator.return(null)
       }
-      if (step.value) {
+      if (
+        step.value &&
+        meetsTuningMinimums({
+          input,
+          traces: step.value,
+          minimums: tuningMinimums,
+        })
+      ) {
         routed.clear()
         for (const trace of step.value) {
           routed.set(trace.connection_name!, trace)
@@ -667,7 +750,8 @@ export function* negotiateLanes(
     if (missing) continue
     const result = [...paired, ...routed.values()]
     for (const trace of routed.values()) {
-      if (trace.coupledSection) continue
+      if (trace.coupledSection || tuningMinimums.has(trace.connection_name!))
+        continue
       const connection = connections.find(
           (c) => c.name === trace.connection_name,
         )!,

@@ -88,6 +88,7 @@ export class BusLanesSolver extends BaseSolver {
   private reservePackageExits?: boolean
   private pairSearch?: Generator<void, Trace[] | null>
   private reportedRoutes?: Array<{ trace: Trace; route: Trace["route"] }>
+  private tuningNegotiationAttempted = false
   private lengthStats?: {
     busLengths: ReturnType<typeof busLengthReports>
     pairLengths: ReturnType<typeof pairLengthReports>
@@ -305,7 +306,8 @@ export class BusLanesSolver extends BaseSolver {
   private get useNegotiation() {
     return (
       this.options.denseSearch &&
-      (this.input.connections.length > 12 ||
+      (this.tuningNegotiationAttempted ||
+        this.input.connections.length > 12 ||
         independentBusGroups(this.input) !== null ||
         this.input.connections.some(
           (c) => (this.terminalLayers.get(c.name)?.length ?? 0) > 1,
@@ -511,19 +513,20 @@ export class BusLanesSolver extends BaseSolver {
         }
       }
       this.reservePackageExits ??= backwardFacingPackageTerminals(this.input)
-      this.negotiated ??= negotiateLanes(
-        this.input,
-        this.orders[0],
-        this.fixed,
-        this.pairedTraces,
-        this.widths,
-        (pass, conflicts) => {
+      this.negotiated ??= negotiateLanes({
+        input: this.input,
+        connections: this.orders[0],
+        fixed: this.fixed,
+        paired: this.pairedTraces,
+        widths: this.widths,
+        reportProgress: (pass, conflicts) => {
           this.congestionPass = pass
           this.conflictingLanes = conflicts
         },
-        this.terminalLayers,
-        () => this.reservePackageExits!,
-      )
+        terminalLayers: this.terminalLayers,
+        enableTerminalReservations: () => this.reservePackageExits!,
+        negotiateTuning: this.tuningNegotiationAttempted,
+      })
       const step = this.negotiated.next()
       if (!step.done) {
         this.traces = step.value
@@ -798,6 +801,22 @@ export class BusLanesSolver extends BaseSolver {
           }
         }
       }
+    }
+    // A clear layout can still need neighbors to move for a tuning bank.
+    // Reuse joint negotiation before repeating fixed-copper lane orders.
+    if (
+      !this.isRefinement &&
+      !this.tuningNegotiationAttempted &&
+      this.options.denseSearch &&
+      (input.buses?.length ?? 0) > 1 &&
+      input.buses?.some(
+        (bus) => bus.minLength !== undefined || bus.maxLengthSkew !== undefined,
+      )
+    ) {
+      this.tuningNegotiationAttempted = true
+      this.negotiated = undefined
+      this.phase = "route"
+      return
     }
     // A connected layout can still leave no room for length matching. Try
     // the remaining lane orders before declaring the timing group impossible.

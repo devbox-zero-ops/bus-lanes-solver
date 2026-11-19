@@ -149,17 +149,16 @@ export function* repairBusDogbones(
           6000,
         )
         if (!paired) continue
-        const generator = negotiateLanes(
-          local,
-          ordinary,
-          fixed,
-          paired,
-          widths,
-          undefined,
-          new Map(),
-          () => false,
-          true,
-        )
+        const generator = negotiateLanes({
+          input: local,
+          connections: ordinary,
+          fixed: fixed,
+          paired: paired,
+          widths: widths,
+          terminalLayers: new Map(),
+          enableTerminalReservations: () => false,
+          deferRetainedSelfClearance: true,
+        })
         let state = generator.next()
         let steps = 0
         let best = 0

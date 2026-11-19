@@ -105,18 +105,17 @@ export function* routeIndependentBuses(
         solved = finish(input, paired)
         continue
       }
-      const search = negotiateLanes(
-        input,
-        ordinary,
-        fixed,
-        paired,
-        widths,
-        undefined,
-        new Map(),
-        () => false,
-        false,
-        !!pair && pairHasUnroutedNativePads(input, pair),
-      )
+      const search = negotiateLanes({
+        input: input,
+        connections: ordinary,
+        fixed: fixed,
+        paired: paired,
+        widths: widths,
+        terminalLayers: new Map(),
+        enableTerminalReservations: () => false,
+        deferRetainedSelfClearance: false,
+        checkReachability: !!pair && pairHasUnroutedNativePads(input, pair),
+      })
       let state = search.next(),
         steps = 0
       try {
