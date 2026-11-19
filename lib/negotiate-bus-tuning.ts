@@ -51,7 +51,7 @@ export function negotiateBusTuning({
       bus.connectionNames.includes(trace.connection_name!),
     )
     if (
-      members.length !== bus.connectionNames.length ||
+      !members.length ||
       members.some((trace) =>
         trace.route.some((point) => point.route_type !== "wire"),
       )
@@ -59,10 +59,17 @@ export function negotiateBusTuning({
       continue
     const local: SimpleRouteJson = {
       ...input,
-      buses: [bus],
+      // Forecast the bank as the bus grows. Only routed members constrain
+      // this proposal; complete-bus acceptance still checks every member.
+      buses: [
+        {
+          ...bus,
+          connectionNames: members.map((trace) => trace.connection_name!),
+        },
+      ],
       differentialPairs: input.differentialPairs?.filter((pair) =>
         pair.connectionNames.every((name) =>
-          bus.connectionNames.includes(name),
+          members.some((trace) => trace.connection_name === name),
         ),
       ),
       traces: [

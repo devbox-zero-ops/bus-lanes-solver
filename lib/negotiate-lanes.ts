@@ -1,14 +1,12 @@
 import {
   busRoutingOrders,
   busRoutingUnits,
+  tuneRoutingUnit,
   type LaneRoutingUnit,
 } from "./bus-routing-units"
 import { tuningPathIsSelfClear } from "./length-tuning"
 import { maximumCarrierLength } from "./route-lengths"
-import {
-  busTuningMatchesTargets,
-  negotiateBusTuning,
-} from "./negotiate-bus-tuning"
+import { busTuningMatchesTargets } from "./negotiate-bus-tuning"
 import { refineRouteCandidates } from "./refine-route-candidates"
 import { routeViaWaypoint } from "./route-via-waypoint"
 import { pendingLaneCertificates } from "./pending-lane-certificates"
@@ -58,7 +56,7 @@ export function* negotiateLanes({
   const flexibleTerminals = connections.some(
     (connection) => (terminalLayers.get(connection.name)?.length ?? 1) > 1,
   )
-  const routed = new Map<string, Trace>()
+  const routed = new Map<ConnectionName, Trace>()
   const histories = new Map<string, Float32Array>()
   const searches = new Map<string, GridHistoryProjector>()
   const clearance =
@@ -325,6 +323,8 @@ export function* negotiateLanes({
         if (!negotiateTuning) candidates.add(connection.name, step.value)
         for (const trace of step.value)
           routed.set(trace.connection_name!, trace)
+        if (negotiateTuning)
+          tuneRoutingUnit({ input, unit: currentUnit, paired, routed })
         continue
       }
       let pendingCopper: Copper[] = []
@@ -579,6 +579,8 @@ export function* negotiateLanes({
         point.layer = (bestChoice.trace.route[0] as Wire).layer
       if (!negotiateTuning) candidates.add(connection.name, [bestChoice.trace])
       routed.set(connection.name, bestChoice.trace)
+      if (negotiateTuning)
+        tuneRoutingUnit({ input, unit: currentUnit, paired, routed })
     }
     if (negotiateTuning) {
       // Forecast the bank with the existing exact tuner before selecting the
@@ -586,19 +588,12 @@ export function* negotiateLanes({
       const names = new Set(
         currentUnit.connections.map((connection) => connection.name),
       )
-      const cohortTraces = [...routed.values()].filter((trace) =>
-        names.has(trace.connection_name!),
-      )
-      const soft = [...routed.values()].filter(
-        (trace) => !names.has(trace.connection_name!),
-      )
-      const tuned = negotiateBusTuning({
+      const tuned = tuneRoutingUnit({
         input,
-        traces: cohortTraces,
+        unit: currentUnit,
         paired,
-        soft,
+        routed,
       })
-      for (const trace of tuned) routed.set(trace.connection_name!, trace)
       const local = {
         ...input,
         buses: input.buses?.filter((bus) =>

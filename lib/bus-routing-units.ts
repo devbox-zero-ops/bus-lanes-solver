@@ -1,5 +1,6 @@
 import { windingOrders } from "./winding-orders"
-import type { Connection, SimpleRouteJson } from "./types"
+import { negotiateBusTuning } from "./negotiate-bus-tuning"
+import type { Connection, SimpleRouteJson, Trace } from "./types"
 
 type DifferentialPair = NonNullable<
   SimpleRouteJson["differentialPairs"]
@@ -67,4 +68,29 @@ export function busRoutingOrders(unit: LaneRoutingUnit): LaneRoutingUnit[][] {
   return orders.map((order) =>
     order.map((connection) => byName.get(connection.name)!),
   )
+}
+
+/** Update the provisional bank before the next member can consume its space.
+ * Foreign buses stay soft; final selection still uses the complete bus. */
+export function tuneRoutingUnit({
+  input,
+  unit,
+  paired,
+  routed,
+}: {
+  input: SimpleRouteJson
+  unit: LaneRoutingUnit
+  paired: Trace[]
+  routed: Map<ConnectionName, Trace>
+}): Trace[] {
+  const names = new Set(unit.connections.map((connection) => connection.name))
+  const traces = [...routed.values()]
+  const tuned = negotiateBusTuning({
+    input,
+    paired,
+    traces: traces.filter((trace) => names.has(trace.connection_name!)),
+    soft: traces.filter((trace) => !names.has(trace.connection_name!)),
+  })
+  for (const trace of tuned) routed.set(trace.connection_name!, trace)
+  return tuned
 }
