@@ -1,0 +1,27 @@
+{
+  "sourceCommit": "f37a130e83b2034fdfcf1bba5bafa88d8f73346c",
+  "core": {
+    "base": {
+      "completeBoards": 1,
+      "connectedNets": 217
+    },
+    "head": {
+      "completeBoards": 1,
+      "connectedNets": 217
+    }
+  },
+  "am3352": {
+    "main": {
+      "accepted": 11,
+      "solverSeconds": 3282.0583593300003,
+      "totalWorkerSeconds": 3320.372862989
+    },
+    "pr": {
+      "accepted": 11,
+      "solverSeconds": 3090.570121349,
+      "totalWorkerSeconds": 3126.893011495
+    }
+  },
+  "sameAm3352Iterations": true,
+  "sameAm3352Validation": true
+}

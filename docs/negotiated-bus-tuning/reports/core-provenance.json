@@ -1,0 +1,87 @@
+{
+  "runtime": "Bun1.4.3",
+  "timeoutSeconds": 120,
+  "coreBaseAndHeadCommit": "1799ee7e500a4de9d76a308286787307c4face1e",
+  "busBaseCommit": "202b034659fb96bad44d11b8190f4044b675116f",
+  "busHeadCommit": "f37a130e83b2034fdfcf1bba5bafa88d8f73346c",
+  "cpuAffinity": {
+    "base": 2,
+    "head": 3
+  },
+  "sources": {
+    "base": {
+      "path": "/workspace/core-current-main-fresh",
+      "busPath": "/workspace/ddr-results/packages/bus-main",
+      "busDistSha256": "fa6390c904b678f7dc197d0d3d671a28e273554369f8475457ea86374c5dad8c",
+      "gitStatus": "",
+      "dependencies": {
+        "capacity-autorouter": {
+          "path": "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/capacity-autorouter",
+          "version": "0.0.1133"
+        },
+        "fanout-solver": {
+          "path": "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/fanout-solver",
+          "version": "0.0.89"
+        },
+        "checks": {
+          "path": "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/checks",
+          "version": "0.0.282"
+        },
+        "props": {
+          "path": "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/props",
+          "version": "0.0.735"
+        },
+        "core-ddr-benchmark": {
+          "path": "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/core-ddr-benchmark",
+          "version": "0.0.1"
+        }
+      }
+    },
+    "head": {
+      "path": "/workspace/core-negotiated-tuning",
+      "busPath": "/workspace/bus-lanes-cohort-tuning",
+      "busDistSha256": "c94936ec70b5b07972b2b8d7beed2f0c4d988ec288ff3e5151e4ec000847410b",
+      "gitStatus": "",
+      "dependencies": {
+        "capacity-autorouter": {
+          "path": "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/capacity-autorouter",
+          "version": "0.0.1133"
+        },
+        "fanout-solver": {
+          "path": "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/fanout-solver",
+          "version": "0.0.89"
+        },
+        "checks": {
+          "path": "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/checks",
+          "version": "0.0.282"
+        },
+        "props": {
+          "path": "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/props",
+          "version": "0.0.735"
+        },
+        "core-ddr-benchmark": {
+          "path": "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/core-ddr-benchmark",
+          "version": "0.0.1"
+        }
+      }
+    }
+  },
+  "runDirectories": {
+    "base": "/workspace/ddr-results/negotiated-tuning-core-base-05",
+    "head": "/workspace/ddr-results/negotiated-tuning-core-head-05"
+  },
+  "resourceAllocation": "One pinned CPU per Core revision (2/3); one concurrent gallery worker each on0/1; no package/source rebuild during either run. Host quota4CPU,cpuset0-4.",
+  "affinityObserverSampleMs": 1000,
+  "baseAffinityValidated": true,
+  "headAffinityValidated": true,
+  "finalResult": {
+    "base": {
+      "completeBoards": 1,
+      "connectedNets": 217
+    },
+    "head": {
+      "completeBoards": 1,
+      "connectedNets": 217
+    }
+  }
+}

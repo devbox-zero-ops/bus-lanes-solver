@@ -1,0 +1,497 @@
+{
+  "purpose": "External read-only sampled process/thread affinity evidence; no runtime or harness mutation",
+  "runDirectory": "/workspace/ddr-results/negotiated-tuning-core-base-05",
+  "expectedCpusAllowedList": "2",
+  "sampleIntervalMs": 1000,
+  "finishedReason": "original_suite_finished",
+  "routingWorkersObserved": 10,
+  "allObservedProcessAndThreadMasksMatched": true,
+  "allExpectedRoutingWorkersObservedAndPinned": true,
+  "historicalWorkerMasksInferred": false,
+  "coverageLimitation": "Sampling records every visible task at each scan; threads created and exited between scans are not observed.",
+  "processes": [
+    {
+      "pid": 127936,
+      "ppid": 127932,
+      "startTicks": "9251839",
+      "command": [
+        "bun",
+        "scripts/benchmark-ddr/run.ts",
+        "--out",
+        "/workspace/ddr-results/negotiated-tuning-core-base-05",
+        "--timeout",
+        "120"
+      ],
+      "name": "bun",
+      "role": "official_controller",
+      "firstSeenUtc": "2026-11-19T19:03:34.749726+00:00",
+      "observedThreadIds": [127936, 127943],
+      "observedMasks": ["2"],
+      "lastSeenUtc": "2026-11-19T19:22:29.012378+00:00"
+    },
+    {
+      "pid": 127942,
+      "ppid": 127936,
+      "startTicks": "9251841",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/core-ddr-benchmark/scripts/run.ts",
+        "--core",
+        "/workspace/core-current-main-fresh",
+        "--out",
+        "/workspace/core-current-main-fresh/ddr-benchmark-results",
+        "--out",
+        "/workspace/ddr-results/negotiated-tuning-core-base-05",
+        "--timeout",
+        "120"
+      ],
+      "name": "bun.exe",
+      "role": "official_controller",
+      "firstSeenUtc": "2026-11-19T19:03:34.753025+00:00",
+      "observedThreadIds": [
+        127942, 127946, 127948, 127949, 127950, 127952, 128016, 128022, 128030,
+        128066, 128078, 128138, 128198, 128199, 128200, 128284, 128339, 128378,
+        128379, 128637, 128638, 128639, 128702, 128718, 128719, 128743, 128747,
+        128764, 128803, 128819, 128820, 128843, 128853, 128907, 128908, 128909,
+        128931, 128962, 128963, 128964, 128990, 129015, 129025, 129049, 129050,
+        129073, 129087, 129101
+      ],
+      "observedMasks": ["2"],
+      "lastSeenUtc": "2026-11-19T19:22:29.013425+00:00"
+    },
+    {
+      "pid": 127955,
+      "ppid": 127942,
+      "startTicks": "9251848",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "--tsconfig-override",
+        "/workspace/core-current-main-fresh/tsconfig.json",
+        "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/core-ddr-benchmark/scripts/worker.tsx",
+        "/workspace/core-current-main-fresh",
+        "h3",
+        "/workspace/ddr-results/negotiated-tuning-core-base-05/h3",
+        "full"
+      ],
+      "name": "bun.exe",
+      "role": "routing_worker",
+      "firstSeenUtc": "2026-11-19T19:03:35.777654+00:00",
+      "observedThreadIds": [
+        127955, 127960, 127961, 127962, 127963, 127964, 128014
+      ],
+      "observedMasks": ["2"],
+      "lastSeenUtc": "2026-11-19T19:04:45.482291+00:00"
+    },
+    {
+      "pid": 128045,
+      "ppid": 127942,
+      "startTicks": "9259017",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/core-ddr-benchmark/scripts/assess.ts",
+        "/workspace/core-current-main-fresh",
+        "h3",
+        "/workspace/ddr-results/negotiated-tuning-core-base-05/h3"
+      ],
+      "name": "bun.exe",
+      "role": "assessment",
+      "firstSeenUtc": "2026-11-19T19:04:46.539136+00:00",
+      "observedThreadIds": [
+        128045, 128047, 128048, 128049, 128050, 128051, 128056
+      ],
+      "observedMasks": ["2"],
+      "lastSeenUtc": "2026-11-19T19:04:47.561060+00:00"
+    },
+    {
+      "pid": 128067,
+      "ppid": 127942,
+      "startTicks": "9259135",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "--tsconfig-override",
+        "/workspace/core-current-main-fresh/tsconfig.json",
+        "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/core-ddr-benchmark/scripts/worker.tsx",
+        "/workspace/core-current-main-fresh",
+        "a64",
+        "/workspace/ddr-results/negotiated-tuning-core-base-05/a64",
+        "full"
+      ],
+      "name": "bun.exe",
+      "role": "routing_worker",
+      "firstSeenUtc": "2026-11-19T19:04:48.868677+00:00",
+      "observedThreadIds": [
+        128067, 128068, 128069, 128070, 128071, 128072, 128073, 128146, 128165,
+        128166
+      ],
+      "observedMasks": ["2"],
+      "lastSeenUtc": "2026-11-19T19:06:47.147312+00:00"
+    },
+    {
+      "pid": 128183,
+      "ppid": 127942,
+      "startTicks": "9271144",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/core-ddr-benchmark/scripts/assess.ts",
+        "/workspace/core-current-main-fresh",
+        "a64",
+        "/workspace/ddr-results/negotiated-tuning-core-base-05/a64"
+      ],
+      "name": "bun.exe",
+      "role": "assessment",
+      "firstSeenUtc": "2026-11-19T19:06:48.213405+00:00",
+      "observedThreadIds": [
+        128183, 128184, 128185, 128186, 128187, 128188, 128189
+      ],
+      "observedMasks": ["2"],
+      "lastSeenUtc": "2026-11-19T19:06:48.213424+00:00"
+    },
+    {
+      "pid": 128201,
+      "ppid": 127942,
+      "startTicks": "9271296",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "--tsconfig-override",
+        "/workspace/core-current-main-fresh/tsconfig.json",
+        "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/core-ddr-benchmark/scripts/worker.tsx",
+        "/workspace/core-current-main-fresh",
+        "stmp157",
+        "/workspace/ddr-results/negotiated-tuning-core-base-05/stmp157",
+        "full"
+      ],
+      "name": "bun.exe",
+      "role": "routing_worker",
+      "firstSeenUtc": "2026-11-19T19:06:50.311012+00:00",
+      "observedThreadIds": [
+        128201, 128202, 128203, 128204, 128205, 128206, 128210, 128330, 128333,
+        128345, 128347
+      ],
+      "observedMasks": ["2"],
+      "lastSeenUtc": "2026-11-19T19:08:48.432105+00:00"
+    },
+    {
+      "pid": 128363,
+      "ppid": 127942,
+      "startTicks": "9283315",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/core-ddr-benchmark/scripts/assess.ts",
+        "/workspace/core-current-main-fresh",
+        "stmp157",
+        "/workspace/ddr-results/negotiated-tuning-core-base-05/stmp157"
+      ],
+      "name": "bun.exe",
+      "role": "assessment",
+      "firstSeenUtc": "2026-11-19T19:08:49.487279+00:00",
+      "observedThreadIds": [
+        128363, 128364, 128365, 128366, 128367, 128368, 128369
+      ],
+      "observedMasks": ["2"],
+      "lastSeenUtc": "2026-11-19T19:08:50.534840+00:00"
+    },
+    {
+      "pid": 128380,
+      "ppid": 127942,
+      "startTicks": "9283509",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "--tsconfig-override",
+        "/workspace/core-current-main-fresh/tsconfig.json",
+        "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/core-ddr-benchmark/scripts/worker.tsx",
+        "/workspace/core-current-main-fresh",
+        "orangecrab",
+        "/workspace/ddr-results/negotiated-tuning-core-base-05/orangecrab",
+        "full"
+      ],
+      "name": "bun.exe",
+      "role": "routing_worker",
+      "firstSeenUtc": "2026-11-19T19:08:52.627853+00:00",
+      "observedThreadIds": [
+        128380, 128381, 128382, 128383, 128384, 128385, 128386, 128614
+      ],
+      "observedMasks": ["2"],
+      "lastSeenUtc": "2026-11-19T19:10:50.765418+00:00"
+    },
+    {
+      "pid": 128622,
+      "ppid": 127942,
+      "startTicks": "9295522",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/core-ddr-benchmark/scripts/assess.ts",
+        "/workspace/core-current-main-fresh",
+        "orangecrab",
+        "/workspace/ddr-results/negotiated-tuning-core-base-05/orangecrab"
+      ],
+      "name": "bun.exe",
+      "role": "assessment",
+      "firstSeenUtc": "2026-11-19T19:10:51.836006+00:00",
+      "observedThreadIds": [
+        128622, 128623, 128624, 128625, 128626, 128627, 128628
+      ],
+      "observedMasks": ["2"],
+      "lastSeenUtc": "2026-11-19T19:10:51.836014+00:00"
+    },
+    {
+      "pid": 128640,
+      "ppid": 127942,
+      "startTicks": "9295640",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "--tsconfig-override",
+        "/workspace/core-current-main-fresh/tsconfig.json",
+        "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/core-ddr-benchmark/scripts/worker.tsx",
+        "/workspace/core-current-main-fresh",
+        "a13",
+        "/workspace/ddr-results/negotiated-tuning-core-base-05/a13",
+        "full"
+      ],
+      "name": "bun.exe",
+      "role": "routing_worker",
+      "firstSeenUtc": "2026-11-19T19:10:52.922073+00:00",
+      "observedThreadIds": [
+        128640, 128641, 128642, 128643, 128644, 128645, 128647, 128664, 128681,
+        128685, 128687
+      ],
+      "observedMasks": ["2"],
+      "lastSeenUtc": "2026-11-19T19:12:52.072340+00:00"
+    },
+    {
+      "pid": 128701,
+      "ppid": 127942,
+      "startTicks": "9307651",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/core-ddr-benchmark/scripts/assess.ts",
+        "/workspace/core-current-main-fresh",
+        "a13",
+        "/workspace/ddr-results/negotiated-tuning-core-base-05/a13"
+      ],
+      "name": "bun.exe",
+      "role": "assessment",
+      "firstSeenUtc": "2026-11-19T19:12:53.132229+00:00",
+      "observedThreadIds": [
+        128701, 128703, 128704, 128705, 128706, 128707, 128708
+      ],
+      "observedMasks": ["2"],
+      "lastSeenUtc": "2026-11-19T19:12:55.175022+00:00"
+    },
+    {
+      "pid": 128720,
+      "ppid": 127942,
+      "startTicks": "9307930",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "--tsconfig-override",
+        "/workspace/core-current-main-fresh/tsconfig.json",
+        "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/core-ddr-benchmark/scripts/worker.tsx",
+        "/workspace/core-current-main-fresh",
+        "h616",
+        "/workspace/ddr-results/negotiated-tuning-core-base-05/h616",
+        "full"
+      ],
+      "name": "bun.exe",
+      "role": "routing_worker",
+      "firstSeenUtc": "2026-11-19T19:12:56.275609+00:00",
+      "observedThreadIds": [
+        128720, 128721, 128722, 128723, 128724, 128725, 128726
+      ],
+      "observedMasks": ["2"],
+      "lastSeenUtc": "2026-11-19T19:14:54.429724+00:00"
+    },
+    {
+      "pid": 128810,
+      "ppid": 127942,
+      "startTicks": "9319960",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/core-ddr-benchmark/scripts/assess.ts",
+        "/workspace/core-current-main-fresh",
+        "h616",
+        "/workspace/ddr-results/negotiated-tuning-core-base-05/h616"
+      ],
+      "name": "bun.exe",
+      "role": "assessment",
+      "firstSeenUtc": "2026-11-19T19:14:57.884937+00:00",
+      "observedThreadIds": [
+        128810, 128812, 128813, 128814, 128815, 128817, 128818
+      ],
+      "observedMasks": ["2"],
+      "lastSeenUtc": "2026-11-19T19:14:57.884948+00:00"
+    },
+    {
+      "pid": 128821,
+      "ppid": 127942,
+      "startTicks": "9320168",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "--tsconfig-override",
+        "/workspace/core-current-main-fresh/tsconfig.json",
+        "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/core-ddr-benchmark/scripts/worker.tsx",
+        "/workspace/core-current-main-fresh",
+        "butterstick",
+        "/workspace/ddr-results/negotiated-tuning-core-base-05/butterstick",
+        "full"
+      ],
+      "name": "bun.exe",
+      "role": "routing_worker",
+      "firstSeenUtc": "2026-11-19T19:14:58.960003+00:00",
+      "observedThreadIds": [
+        128821, 128822, 128823, 128824, 128829, 128830, 128837, 128881
+      ],
+      "observedMasks": ["2"],
+      "lastSeenUtc": "2026-11-19T19:16:58.130081+00:00"
+    },
+    {
+      "pid": 128890,
+      "ppid": 127942,
+      "startTicks": "9332191",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/core-ddr-benchmark/scripts/assess.ts",
+        "/workspace/core-current-main-fresh",
+        "butterstick",
+        "/workspace/ddr-results/negotiated-tuning-core-base-05/butterstick"
+      ],
+      "name": "bun.exe",
+      "role": "assessment",
+      "firstSeenUtc": "2026-11-19T19:16:59.172001+00:00",
+      "observedThreadIds": [
+        128890, 128891, 128892, 128893, 128894, 128895, 128896
+      ],
+      "observedMasks": ["2"],
+      "lastSeenUtc": "2026-11-19T19:17:00.480154+00:00"
+    },
+    {
+      "pid": 128910,
+      "ppid": 127942,
+      "startTicks": "9332493",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "--tsconfig-override",
+        "/workspace/core-current-main-fresh/tsconfig.json",
+        "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/core-ddr-benchmark/scripts/worker.tsx",
+        "/workspace/core-current-main-fresh",
+        "glider",
+        "/workspace/ddr-results/negotiated-tuning-core-base-05/glider",
+        "full"
+      ],
+      "name": "bun.exe",
+      "role": "routing_worker",
+      "firstSeenUtc": "2026-11-19T19:17:01.509978+00:00",
+      "observedThreadIds": [
+        128910, 128911, 128912, 128913, 128914, 128915, 128917
+      ],
+      "observedMasks": ["2"],
+      "lastSeenUtc": "2026-11-19T19:18:23.918161+00:00"
+    },
+    {
+      "pid": 128948,
+      "ppid": 127942,
+      "startTicks": "9340832",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/core-ddr-benchmark/scripts/assess.ts",
+        "/workspace/core-current-main-fresh",
+        "glider",
+        "/workspace/ddr-results/negotiated-tuning-core-base-05/glider"
+      ],
+      "name": "bun.exe",
+      "role": "assessment",
+      "firstSeenUtc": "2026-11-19T19:18:24.944837+00:00",
+      "observedThreadIds": [
+        128948, 128949, 128950, 128951, 128952, 128953, 128955
+      ],
+      "observedMasks": ["2"],
+      "lastSeenUtc": "2026-11-19T19:18:25.983556+00:00"
+    },
+    {
+      "pid": 128965,
+      "ppid": 127942,
+      "startTicks": "9341030",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "--tsconfig-override",
+        "/workspace/core-current-main-fresh/tsconfig.json",
+        "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/core-ddr-benchmark/scripts/worker.tsx",
+        "/workspace/core-current-main-fresh",
+        "imx6",
+        "/workspace/ddr-results/negotiated-tuning-core-base-05/imx6",
+        "full"
+      ],
+      "name": "bun.exe",
+      "role": "routing_worker",
+      "firstSeenUtc": "2026-11-19T19:18:27.054613+00:00",
+      "observedThreadIds": [
+        128965, 128966, 128967, 128968, 128969, 128970, 128980, 129019
+      ],
+      "observedMasks": ["2"],
+      "lastSeenUtc": "2026-11-19T19:20:26.329715+00:00"
+    },
+    {
+      "pid": 129028,
+      "ppid": 127942,
+      "startTicks": "9353048",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/core-ddr-benchmark/scripts/assess.ts",
+        "/workspace/core-current-main-fresh",
+        "imx6",
+        "/workspace/ddr-results/negotiated-tuning-core-base-05/imx6"
+      ],
+      "name": "bun.exe",
+      "role": "assessment",
+      "firstSeenUtc": "2026-11-19T19:20:27.381891+00:00",
+      "observedThreadIds": [
+        129028, 129029, 129030, 129031, 129032, 129034, 129041
+      ],
+      "observedMasks": ["2"],
+      "lastSeenUtc": "2026-11-19T19:20:27.381909+00:00"
+    },
+    {
+      "pid": 129051,
+      "ppid": 127942,
+      "startTicks": "9353173",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "--tsconfig-override",
+        "/workspace/core-current-main-fresh/tsconfig.json",
+        "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/core-ddr-benchmark/scripts/worker.tsx",
+        "/workspace/core-current-main-fresh",
+        "icepi",
+        "/workspace/ddr-results/negotiated-tuning-core-base-05/icepi",
+        "full"
+      ],
+      "name": "bun.exe",
+      "role": "routing_worker",
+      "firstSeenUtc": "2026-11-19T19:20:28.514957+00:00",
+      "observedThreadIds": [
+        129051, 129053, 129054, 129055, 129056, 129057, 129058, 129095, 129102
+      ],
+      "observedMasks": ["2"],
+      "lastSeenUtc": "2026-11-19T19:22:27.821345+00:00"
+    },
+    {
+      "pid": 129117,
+      "ppid": 127942,
+      "startTicks": "9365193",
+      "command": [
+        "/workspace/.tools/bun-1.4.3/node_modules/bun/bin/bun.exe",
+        "/workspace/ddr-results/core-current-dependencies-1799ee7/node_modules/@tscircuit/core-ddr-benchmark/scripts/assess.ts",
+        "/workspace/core-current-main-fresh",
+        "icepi",
+        "/workspace/ddr-results/negotiated-tuning-core-base-05/icepi"
+      ],
+      "name": "bun.exe",
+      "role": "assessment",
+      "firstSeenUtc": "2026-11-19T19:22:29.014672+00:00",
+      "observedThreadIds": [
+        129117, 129118, 129119, 129120, 129121, 129122, 129124
+      ],
+      "observedMasks": ["2"],
+      "lastSeenUtc": "2026-11-19T19:22:29.014690+00:00"
+    }
+  ],
+  "violations": []
+}

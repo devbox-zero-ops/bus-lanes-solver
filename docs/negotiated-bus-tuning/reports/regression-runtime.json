@@ -1,0 +1,1975 @@
+{
+  "base": "202b034659fb96bad44d11b8190f4044b675116f",
+  "head": "f37a130e83b2034fdfcf1bba5bafa88d8f73346c",
+  "runtime": "1.4.3",
+  "cpuAffinity": "2",
+  "maxSearchIterations": 20000,
+  "timeoutSeconds": 15,
+  "signalsPerBus": 8,
+  "fixtureSha256": "e20cafc4d91cab50e30af29290006ff3ac06054eed8f96a9f8d83fff9bfa5319",
+  "scope": "Six fresh processes, same physical input/options and per-process15s budget; baseline is a connected/DRC-clear matching failure. These timings compare different outcomes and establish no speedup.",
+  "reports": [
+    {
+      "revision": "base",
+      "solved": false,
+      "failureCode": "length_matching_failed",
+      "error": "Error: Insufficient tuning clearance for CENTER_0",
+      "milliseconds": 577.5917450000001,
+      "iterations": 83,
+      "inputUnchanged": true,
+      "drc": {
+        "valid": true,
+        "checkedTraceCount": 40,
+        "checkedSegmentCount": 40,
+        "checkedViaCount": 0,
+        "issues": []
+      },
+      "connectivity": {
+        "valid": true,
+        "checkedConnectionCount": 40,
+        "connectedConnectionCount": 40,
+        "checkedEndpointCount": 80,
+        "connectedEndpointCount": 80,
+        "issues": []
+      },
+      "buses": [
+        {
+          "busId": "CENTER",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 2,
+          "matched": false,
+          "lengths": [
+            {
+              "name": "CENTER_0",
+              "carrierLengthMm": 8,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 8
+            },
+            {
+              "name": "CENTER_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        },
+        {
+          "busId": "NORTH1",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "NORTH1_0",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        },
+        {
+          "busId": "NORTH2",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "NORTH2_0",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        },
+        {
+          "busId": "SOUTH1",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "SOUTH1_0",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH1_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH1_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH1_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH1_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH1_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH1_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH1_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        },
+        {
+          "busId": "SOUTH2",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "SOUTH2_0",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH2_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH2_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH2_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH2_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH2_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH2_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH2_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        }
+      ],
+      "cpuAffinity": "2"
+    },
+    {
+      "revision": "head",
+      "solved": true,
+      "failureCode": null,
+      "error": null,
+      "milliseconds": 677.6385310000001,
+      "iterations": 130,
+      "inputUnchanged": true,
+      "drc": {
+        "valid": true,
+        "checkedTraceCount": 40,
+        "checkedSegmentCount": 312,
+        "checkedViaCount": 0,
+        "issues": []
+      },
+      "connectivity": {
+        "valid": true,
+        "checkedConnectionCount": 40,
+        "connectedConnectionCount": 40,
+        "checkedEndpointCount": 80,
+        "connectedEndpointCount": 80,
+        "issues": []
+      },
+      "buses": [
+        {
+          "busId": "CENTER",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0.019999999999999574,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "CENTER_0",
+              "carrierLengthMm": 9.98,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 9.98
+            },
+            {
+              "name": "CENTER_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        },
+        {
+          "busId": "NORTH1",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "NORTH1_0",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        },
+        {
+          "busId": "NORTH2",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "NORTH2_0",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        },
+        {
+          "busId": "SOUTH1",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0.020000000000004903,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "SOUTH1_0",
+              "carrierLengthMm": 10.745584412271572,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.745584412271572
+            },
+            {
+              "name": "SOUTH1_1",
+              "carrierLengthMm": 10.725584412271568,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.725584412271568
+            },
+            {
+              "name": "SOUTH1_2",
+              "carrierLengthMm": 10.725584412271568,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.725584412271568
+            },
+            {
+              "name": "SOUTH1_3",
+              "carrierLengthMm": 10.725584412271575,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.725584412271575
+            },
+            {
+              "name": "SOUTH1_4",
+              "carrierLengthMm": 10.725584412271573,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.725584412271573
+            },
+            {
+              "name": "SOUTH1_5",
+              "carrierLengthMm": 10.725584412271575,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.725584412271575
+            },
+            {
+              "name": "SOUTH1_6",
+              "carrierLengthMm": 10.725584412271575,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.725584412271575
+            },
+            {
+              "name": "SOUTH1_7",
+              "carrierLengthMm": 10.725584412271573,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.725584412271573
+            }
+          ]
+        },
+        {
+          "busId": "SOUTH2",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0.02000000000000135,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "SOUTH2_0",
+              "carrierLengthMm": 10.579898987322334,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.579898987322334
+            },
+            {
+              "name": "SOUTH2_1",
+              "carrierLengthMm": 10.559898987322333,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.559898987322333
+            },
+            {
+              "name": "SOUTH2_2",
+              "carrierLengthMm": 10.559898987322333,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.559898987322333
+            },
+            {
+              "name": "SOUTH2_3",
+              "carrierLengthMm": 10.559898987322336,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.559898987322336
+            },
+            {
+              "name": "SOUTH2_4",
+              "carrierLengthMm": 10.559898987322333,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.559898987322333
+            },
+            {
+              "name": "SOUTH2_5",
+              "carrierLengthMm": 10.559898987322336,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.559898987322336
+            },
+            {
+              "name": "SOUTH2_6",
+              "carrierLengthMm": 10.559898987322335,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.559898987322335
+            },
+            {
+              "name": "SOUTH2_7",
+              "carrierLengthMm": 10.559898987322336,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.559898987322336
+            }
+          ]
+        }
+      ],
+      "cpuAffinity": "2"
+    },
+    {
+      "revision": "head",
+      "solved": true,
+      "failureCode": null,
+      "error": null,
+      "milliseconds": 701.703959,
+      "iterations": 130,
+      "inputUnchanged": true,
+      "drc": {
+        "valid": true,
+        "checkedTraceCount": 40,
+        "checkedSegmentCount": 312,
+        "checkedViaCount": 0,
+        "issues": []
+      },
+      "connectivity": {
+        "valid": true,
+        "checkedConnectionCount": 40,
+        "connectedConnectionCount": 40,
+        "checkedEndpointCount": 80,
+        "connectedEndpointCount": 80,
+        "issues": []
+      },
+      "buses": [
+        {
+          "busId": "CENTER",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0.019999999999999574,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "CENTER_0",
+              "carrierLengthMm": 9.98,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 9.98
+            },
+            {
+              "name": "CENTER_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        },
+        {
+          "busId": "NORTH1",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "NORTH1_0",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        },
+        {
+          "busId": "NORTH2",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "NORTH2_0",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        },
+        {
+          "busId": "SOUTH1",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0.020000000000004903,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "SOUTH1_0",
+              "carrierLengthMm": 10.745584412271572,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.745584412271572
+            },
+            {
+              "name": "SOUTH1_1",
+              "carrierLengthMm": 10.725584412271568,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.725584412271568
+            },
+            {
+              "name": "SOUTH1_2",
+              "carrierLengthMm": 10.725584412271568,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.725584412271568
+            },
+            {
+              "name": "SOUTH1_3",
+              "carrierLengthMm": 10.725584412271575,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.725584412271575
+            },
+            {
+              "name": "SOUTH1_4",
+              "carrierLengthMm": 10.725584412271573,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.725584412271573
+            },
+            {
+              "name": "SOUTH1_5",
+              "carrierLengthMm": 10.725584412271575,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.725584412271575
+            },
+            {
+              "name": "SOUTH1_6",
+              "carrierLengthMm": 10.725584412271575,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.725584412271575
+            },
+            {
+              "name": "SOUTH1_7",
+              "carrierLengthMm": 10.725584412271573,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.725584412271573
+            }
+          ]
+        },
+        {
+          "busId": "SOUTH2",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0.02000000000000135,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "SOUTH2_0",
+              "carrierLengthMm": 10.579898987322334,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.579898987322334
+            },
+            {
+              "name": "SOUTH2_1",
+              "carrierLengthMm": 10.559898987322333,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.559898987322333
+            },
+            {
+              "name": "SOUTH2_2",
+              "carrierLengthMm": 10.559898987322333,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.559898987322333
+            },
+            {
+              "name": "SOUTH2_3",
+              "carrierLengthMm": 10.559898987322336,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.559898987322336
+            },
+            {
+              "name": "SOUTH2_4",
+              "carrierLengthMm": 10.559898987322333,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.559898987322333
+            },
+            {
+              "name": "SOUTH2_5",
+              "carrierLengthMm": 10.559898987322336,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.559898987322336
+            },
+            {
+              "name": "SOUTH2_6",
+              "carrierLengthMm": 10.559898987322335,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.559898987322335
+            },
+            {
+              "name": "SOUTH2_7",
+              "carrierLengthMm": 10.559898987322336,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.559898987322336
+            }
+          ]
+        }
+      ],
+      "cpuAffinity": "2"
+    },
+    {
+      "revision": "base",
+      "solved": false,
+      "failureCode": "length_matching_failed",
+      "error": "Error: Insufficient tuning clearance for CENTER_0",
+      "milliseconds": 314.513114,
+      "iterations": 83,
+      "inputUnchanged": true,
+      "drc": {
+        "valid": true,
+        "checkedTraceCount": 40,
+        "checkedSegmentCount": 40,
+        "checkedViaCount": 0,
+        "issues": []
+      },
+      "connectivity": {
+        "valid": true,
+        "checkedConnectionCount": 40,
+        "connectedConnectionCount": 40,
+        "checkedEndpointCount": 80,
+        "connectedEndpointCount": 80,
+        "issues": []
+      },
+      "buses": [
+        {
+          "busId": "CENTER",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 2,
+          "matched": false,
+          "lengths": [
+            {
+              "name": "CENTER_0",
+              "carrierLengthMm": 8,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 8
+            },
+            {
+              "name": "CENTER_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        },
+        {
+          "busId": "NORTH1",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "NORTH1_0",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        },
+        {
+          "busId": "NORTH2",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "NORTH2_0",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        },
+        {
+          "busId": "SOUTH1",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "SOUTH1_0",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH1_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH1_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH1_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH1_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH1_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH1_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH1_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        },
+        {
+          "busId": "SOUTH2",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "SOUTH2_0",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH2_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH2_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH2_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH2_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH2_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH2_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH2_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        }
+      ],
+      "cpuAffinity": "2"
+    },
+    {
+      "revision": "base",
+      "solved": false,
+      "failureCode": "length_matching_failed",
+      "error": "Error: Insufficient tuning clearance for CENTER_0",
+      "milliseconds": 366.64119800000003,
+      "iterations": 83,
+      "inputUnchanged": true,
+      "drc": {
+        "valid": true,
+        "checkedTraceCount": 40,
+        "checkedSegmentCount": 40,
+        "checkedViaCount": 0,
+        "issues": []
+      },
+      "connectivity": {
+        "valid": true,
+        "checkedConnectionCount": 40,
+        "connectedConnectionCount": 40,
+        "checkedEndpointCount": 80,
+        "connectedEndpointCount": 80,
+        "issues": []
+      },
+      "buses": [
+        {
+          "busId": "CENTER",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 2,
+          "matched": false,
+          "lengths": [
+            {
+              "name": "CENTER_0",
+              "carrierLengthMm": 8,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 8
+            },
+            {
+              "name": "CENTER_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        },
+        {
+          "busId": "NORTH1",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "NORTH1_0",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        },
+        {
+          "busId": "NORTH2",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "NORTH2_0",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        },
+        {
+          "busId": "SOUTH1",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "SOUTH1_0",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH1_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH1_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH1_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH1_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH1_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH1_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH1_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        },
+        {
+          "busId": "SOUTH2",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "SOUTH2_0",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH2_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH2_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH2_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH2_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH2_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH2_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "SOUTH2_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        }
+      ],
+      "cpuAffinity": "2"
+    },
+    {
+      "revision": "head",
+      "solved": true,
+      "failureCode": null,
+      "error": null,
+      "milliseconds": 1129.0770149999998,
+      "iterations": 130,
+      "inputUnchanged": true,
+      "drc": {
+        "valid": true,
+        "checkedTraceCount": 40,
+        "checkedSegmentCount": 312,
+        "checkedViaCount": 0,
+        "issues": []
+      },
+      "connectivity": {
+        "valid": true,
+        "checkedConnectionCount": 40,
+        "connectedConnectionCount": 40,
+        "checkedEndpointCount": 80,
+        "connectedEndpointCount": 80,
+        "issues": []
+      },
+      "buses": [
+        {
+          "busId": "CENTER",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0.019999999999999574,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "CENTER_0",
+              "carrierLengthMm": 9.98,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 9.98
+            },
+            {
+              "name": "CENTER_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "CENTER_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        },
+        {
+          "busId": "NORTH1",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "NORTH1_0",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH1_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        },
+        {
+          "busId": "NORTH2",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "NORTH2_0",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_1",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_2",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_3",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_4",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_5",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_6",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            },
+            {
+              "name": "NORTH2_7",
+              "carrierLengthMm": 10,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10
+            }
+          ]
+        },
+        {
+          "busId": "SOUTH1",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0.020000000000004903,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "SOUTH1_0",
+              "carrierLengthMm": 10.745584412271572,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.745584412271572
+            },
+            {
+              "name": "SOUTH1_1",
+              "carrierLengthMm": 10.725584412271568,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.725584412271568
+            },
+            {
+              "name": "SOUTH1_2",
+              "carrierLengthMm": 10.725584412271568,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.725584412271568
+            },
+            {
+              "name": "SOUTH1_3",
+              "carrierLengthMm": 10.725584412271575,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.725584412271575
+            },
+            {
+              "name": "SOUTH1_4",
+              "carrierLengthMm": 10.725584412271573,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.725584412271573
+            },
+            {
+              "name": "SOUTH1_5",
+              "carrierLengthMm": 10.725584412271575,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.725584412271575
+            },
+            {
+              "name": "SOUTH1_6",
+              "carrierLengthMm": 10.725584412271575,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.725584412271575
+            },
+            {
+              "name": "SOUTH1_7",
+              "carrierLengthMm": 10.725584412271573,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.725584412271573
+            }
+          ]
+        },
+        {
+          "busId": "SOUTH2",
+          "minLengthMm": null,
+          "aboveMinimumLength": true,
+          "maxLengthMm": 13,
+          "withinLengthLimit": true,
+          "toleranceMm": 0.02,
+          "skewMm": 0.02000000000000135,
+          "matched": true,
+          "lengths": [
+            {
+              "name": "SOUTH2_0",
+              "carrierLengthMm": 10.579898987322334,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.579898987322334
+            },
+            {
+              "name": "SOUTH2_1",
+              "carrierLengthMm": 10.559898987322333,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.559898987322333
+            },
+            {
+              "name": "SOUTH2_2",
+              "carrierLengthMm": 10.559898987322333,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.559898987322333
+            },
+            {
+              "name": "SOUTH2_3",
+              "carrierLengthMm": 10.559898987322336,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.559898987322336
+            },
+            {
+              "name": "SOUTH2_4",
+              "carrierLengthMm": 10.559898987322333,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.559898987322333
+            },
+            {
+              "name": "SOUTH2_5",
+              "carrierLengthMm": 10.559898987322336,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.559898987322336
+            },
+            {
+              "name": "SOUTH2_6",
+              "carrierLengthMm": 10.559898987322335,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.559898987322335
+            },
+            {
+              "name": "SOUTH2_7",
+              "carrierLengthMm": 10.559898987322336,
+              "fixedLengthMm": 0,
+              "totalLengthMm": 10.559898987322336
+            }
+          ]
+        }
+      ],
+      "cpuAffinity": "2"
+    }
+  ]
+}
