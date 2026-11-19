@@ -802,22 +802,6 @@ export class BusLanesSolver extends BaseSolver {
         }
       }
     }
-    // A clear layout can still need neighbors to move for a tuning bank.
-    // Reuse joint negotiation before repeating fixed-copper lane orders.
-    if (
-      !this.isRefinement &&
-      !this.tuningNegotiationAttempted &&
-      this.options.denseSearch &&
-      (input.buses?.length ?? 0) > 1 &&
-      input.buses?.some(
-        (bus) => bus.minLength !== undefined || bus.maxLengthSkew !== undefined,
-      )
-    ) {
-      this.tuningNegotiationAttempted = true
-      this.negotiated = undefined
-      this.phase = "route"
-      return
-    }
     // A connected layout can still leave no room for length matching. Try
     // the remaining lane orders before declaring the timing group impossible.
     if (
@@ -829,6 +813,22 @@ export class BusLanesSolver extends BaseSolver {
         original.filter((trace) => trace.coupledSection),
       )
       this.retry()
+      this.phase = "route"
+      return
+    }
+    // A clear layout can still need neighbors to move for a tuning bank.
+    // Reuse joint negotiation after exhausting the existing fixed-copper lane orders.
+    if (
+      !this.isRefinement &&
+      !this.tuningNegotiationAttempted &&
+      this.options.denseSearch &&
+      (input.buses?.length ?? 0) > 1 &&
+      input.buses?.some(
+        (bus) => bus.minLength !== undefined || bus.maxLengthSkew !== undefined,
+      )
+    ) {
+      this.tuningNegotiationAttempted = true
+      this.negotiated = undefined
       this.phase = "route"
       return
     }
