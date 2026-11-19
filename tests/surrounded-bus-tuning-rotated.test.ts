@@ -20,7 +20,7 @@ test("a quarter-turned bus still negotiates physical matching space", async () =
     type: "pcb_note_text",
     pcb_note_text_id: "tuning_note",
     pcb_group_id: "board",
-    text: "Center matching: 0.02 mm",
+    text: "Five matched buses: 0.02 mm",
     anchor_position: { x: 13, y: input.bounds.maxY - 0.35 },
     anchor_alignment: "center",
     font: "tscircuit2024",

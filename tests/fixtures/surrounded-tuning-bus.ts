@@ -1,5 +1,10 @@
 import type { Connection, SimpleRouteJson, Trace } from "../../lib/types"
-import { applyToPoint, compose, rotateDEG, translate } from "transformation-matrix"
+import {
+  applyToPoint,
+  compose,
+  rotateDEG,
+  translate,
+} from "transformation-matrix"
 
 /** Native board-world endpoints in mm, +X right and +Y up. */
 function horizontalConnection({
@@ -20,7 +25,7 @@ function horizontalConnection({
   }
 }
 
-/** One timed bus surrounded by four independently movable, untimed buses.
+/** Five timed buses, with four independently movable neighbors around CENTER.
  * Their shortest routes are all legal, but leave neither side of CENTER_0
  * enough room for its required additional copper. Board-world mm, +Y up. */
 export function surroundedTuningBus(): SimpleRouteJson {
@@ -43,46 +48,84 @@ export function surroundedTuningBus(): SimpleRouteJson {
       horizontalConnection({ name: "SOUTH2_1", y: -1.2 }),
     ],
     buses: [
-      { busId: "CENTER", connectionNames: ["CENTER_0", "CENTER_1"], maxLengthSkew: 0.02, maxLength: 13 },
-      { busId: "NORTH1", connectionNames: ["NORTH1_0", "NORTH1_1"], maxLength: 13 },
-      { busId: "NORTH2", connectionNames: ["NORTH2_0", "NORTH2_1"], maxLength: 13 },
-      { busId: "SOUTH1", connectionNames: ["SOUTH1_0", "SOUTH1_1"], maxLength: 13 },
-      { busId: "SOUTH2", connectionNames: ["SOUTH2_0", "SOUTH2_1"], maxLength: 13 },
+      {
+        busId: "CENTER",
+        connectionNames: ["CENTER_0", "CENTER_1"],
+        maxLengthSkew: 0.02,
+        maxLength: 13,
+      },
+      {
+        busId: "NORTH1",
+        maxLengthSkew: 0.02,
+        connectionNames: ["NORTH1_0", "NORTH1_1"],
+        maxLength: 13,
+      },
+      {
+        busId: "NORTH2",
+        maxLengthSkew: 0.02,
+        connectionNames: ["NORTH2_0", "NORTH2_1"],
+        maxLength: 13,
+      },
+      {
+        busId: "SOUTH1",
+        maxLengthSkew: 0.02,
+        connectionNames: ["SOUTH1_0", "SOUTH1_1"],
+        maxLength: 13,
+      },
+      {
+        busId: "SOUTH2",
+        maxLengthSkew: 0.02,
+        connectionNames: ["SOUTH2_0", "SOUTH2_1"],
+        maxLength: 13,
+      },
     ],
   }
 }
 
 export function shortestSurroundingRoutes(input: SimpleRouteJson): Trace[] {
-  return input.connections.map(connection => ({
+  return input.connections.map((connection) => ({
     type: "pcb_trace",
     pcb_trace_id: connection.name,
     connection_name: connection.name,
-    route: connection.pointsToConnect.map(point => ({ ...point, route_type: "wire", width: input.minTraceWidth })),
+    route: connection.pointsToConnect.map((point) => ({
+      ...point,
+      route_type: "wire",
+      width: input.minTraceWidth,
+    })),
   }))
 }
 
 /** Rigid board-world point transform in mm, +X right, +Y up.
  * Rotate counterclockwise, then translate; layer identities stay unchanged. */
-export function rotatedSurroundedTuningBus(ccwRotationDegrees: number): SimpleRouteJson {
+export function rotatedSurroundedTuningBus(
+  ccwRotationDegrees: number,
+): SimpleRouteJson {
   const input = surroundedTuningBus()
-  const originalBoardToRotatedBoard = compose(translate(13, -7), rotateDEG(ccwRotationDegrees))
+  const originalBoardToRotatedBoard = compose(
+    translate(13, -7),
+    rotateDEG(ccwRotationDegrees),
+  )
   const bounds = input.bounds
   const corners = [
     { x: bounds.minX, y: bounds.minY },
     { x: bounds.maxX, y: bounds.minY },
     { x: bounds.maxX, y: bounds.maxY },
     { x: bounds.minX, y: bounds.maxY },
-  ].map(point => applyToPoint(originalBoardToRotatedBoard, point))
+  ].map((point) => applyToPoint(originalBoardToRotatedBoard, point))
   return {
     ...input,
-    connections: input.connections.map(connection => ({ ...connection,
-      pointsToConnect: connection.pointsToConnect.map(point => ({ ...point, ...applyToPoint(originalBoardToRotatedBoard, point) })),
+    connections: input.connections.map((connection) => ({
+      ...connection,
+      pointsToConnect: connection.pointsToConnect.map((point) => ({
+        ...point,
+        ...applyToPoint(originalBoardToRotatedBoard, point),
+      })),
     })),
     bounds: {
-      minX: Math.min(...corners.map(point => point.x)),
-      maxX: Math.max(...corners.map(point => point.x)),
-      minY: Math.min(...corners.map(point => point.y)),
-      maxY: Math.max(...corners.map(point => point.y)),
+      minX: Math.min(...corners.map((point) => point.x)),
+      maxX: Math.max(...corners.map((point) => point.x)),
+      minY: Math.min(...corners.map((point) => point.y)),
+      maxY: Math.max(...corners.map((point) => point.y)),
     },
   }
 }

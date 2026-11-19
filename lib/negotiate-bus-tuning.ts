@@ -4,28 +4,26 @@ import { reduceOrdinaryTurns } from "./reduce-ordinary-turns"
 import { fixedCopper, routeCopper, VectorScene } from "./vector-scene"
 import {
   assertLengthTargets,
+  busLengthReports,
   fixedRouteLength,
   minimumLengthTargets,
+  pairLengthReports,
 } from "./route-lengths"
 import type { Connection, SimpleRouteJson, Trace, Wire } from "./types"
 
 type ConnectionName = Connection["name"]
 
-/** Minimum total planar copper lengths include unchanged supplied fanouts. */
-export function meetsTuningMinimums({
-  input,
-  traces,
-  minimums,
-}: {
-  input: SimpleRouteJson
-  traces: readonly Trace[]
-  minimums: ReadonlyMap<ConnectionName, number>
-}): boolean {
-  if (!minimums.size) return true
-  return traces.every(
-    (trace) =>
-      length(trace.route) + fixedRouteLength(input, trace.connection_name!) >=
-      (minimums.get(trace.connection_name!) ?? 0) - 1e-7,
+export function busTuningMatchesTargets(
+  input: SimpleRouteJson,
+  traces: Trace[],
+): boolean {
+  return (
+    busLengthReports(input, traces).every(
+      (bus) =>
+        bus.aboveMinimumLength &&
+        bus.withinLengthLimit &&
+        (bus.toleranceMm === null || bus.matched),
+    ) && pairLengthReports(input, traces).every((pair) => pair.matched)
   )
 }
 
@@ -36,13 +34,14 @@ export function negotiateBusTuning({
   input,
   traces,
   paired = [],
+  soft = [],
 }: {
   input: SimpleRouteJson
   traces: Trace[]
   paired?: Trace[]
-}): { traces: Trace[]; minimums: Map<ConnectionName, number> } {
+  soft?: Trace[]
+}): Trace[] {
   let result = traces
-  const minimums = new Map<ConnectionName, number>()
   const pairNames = new Set(
     input.differentialPairs?.flatMap((pair) => pair.connectionNames),
   )
@@ -100,6 +99,7 @@ export function negotiateBusTuning({
       const copper = [
         ...fixedCopper(local),
         ...paired.flatMap(routeCopper),
+        ...soft.flatMap(routeCopper),
         ...result.flatMap(routeCopper),
       ]
       const carriers = members.map((trace) => {
@@ -125,18 +125,16 @@ export function negotiateBusTuning({
         }
       })
       const tuned = tuneLengths(local, carriers, targets)
-      const replacements = new Map(
+      const replacements = new Map<ConnectionName, Trace>(
         tuned.map((trace) => [trace.connection_name!, trace]),
       )
       result = result.map(
         (trace) => replacements.get(trace.connection_name!) ?? trace,
       )
-      for (const [name, target] of targets)
-        if (!pairNames.has(name)) minimums.set(name, target)
     } catch {
       // A failed forecast does not invalidate ordinary routing alternatives.
       // Final matching retains its existing search and exact constraints.
     }
   }
-  return { traces: result, minimums }
+  return result
 }

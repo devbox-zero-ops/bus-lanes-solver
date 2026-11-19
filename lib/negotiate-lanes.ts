@@ -1,5 +1,14 @@
+import {
+  busRoutingOrders,
+  busRoutingUnits,
+  type LaneRoutingUnit,
+} from "./bus-routing-units"
+import { tuningPathIsSelfClear } from "./length-tuning"
 import { maximumCarrierLength } from "./route-lengths"
-import { meetsTuningMinimums, negotiateBusTuning } from "./negotiate-bus-tuning"
+import {
+  busTuningMatchesTargets,
+  negotiateBusTuning,
+} from "./negotiate-bus-tuning"
 import { refineRouteCandidates } from "./refine-route-candidates"
 import { routeViaWaypoint } from "./route-via-waypoint"
 import { pendingLaneCertificates } from "./pending-lane-certificates"
@@ -60,7 +69,7 @@ export function* negotiateLanes({
       p.connectionNames.every((n) => connections.some((c) => c.name === n)),
   )
   const pairedNames = new Set(pairs.flatMap((p) => p.connectionNames))
-  const units = [
+  const laneUnits: LaneRoutingUnit[] = [
     ...pairs.map((pair) => ({
       pair,
       connections: pair.connectionNames.map(
@@ -76,6 +85,15 @@ export function* negotiateLanes({
       length(a.connections[0].pointsToConnect) -
         length(b.connections[0].pointsToConnect),
   )
+  const units = negotiateTuning
+    ? busRoutingUnits({ input, units: laneUnits })
+    : laneUnits
+  if (!units) return null
+  const cohortOrders = new Map<ConnectionName, LaneRoutingUnit[][]>()
+  const cohortVisits = new Map<ConnectionName, number>()
+  if (negotiateTuning)
+    for (const unit of units)
+      cohortOrders.set(unit.connections[0].name, busRoutingOrders(unit))
   const limits = new Map<string, number>()
   const ceilings = new Map<string, number>()
   for (const bus of input.buses ?? []) {
@@ -92,7 +110,6 @@ export function* negotiateLanes({
     }
   }
   const candidates = new RouteCandidatePool(clearance, 240)
-  const tuningMinimums = new Map<ConnectionName, number>()
   const conflicts = new RouteConflictIndex()
   const unitNames = units.map((unit) => unit.connections[0].name)
   const matchingGroups = [
@@ -169,7 +186,16 @@ export function* negotiateLanes({
       lastProgress = iteration
     }
     const currentUnit = queue.shift()!
-    const sweep = [currentUnit]
+    let sweep = [currentUnit]
+    if (negotiateTuning) {
+      const name = currentUnit.connections[0].name
+      const visit = cohortVisits.get(name) ?? 0
+      cohortVisits.set(name, visit + 1)
+      const orders = cohortOrders.get(name)!
+      sweep = orders[visit % orders.length]
+      for (const connection of currentUnit.connections)
+        routed.delete(connection.name)
+    }
     for (const unit of sweep) {
       const connection = unit.connections[0]
       const visit = (visits.get(connection.name) ?? 0) + 1
@@ -225,7 +251,19 @@ export function* negotiateLanes({
       const routedLanes = [...routed.values()]
       const progressRoutes = [...paired, ...routedLanes]
       const routedCopper = routedLanes.flatMap(getCopper)
+      // Members must be mutually clear inside an atomic bus candidate.
+      // Other generated buses remain soft obstacles and can be ripped up.
+      const cohortCopper = negotiateTuning
+        ? [...routed.values()]
+            .filter((trace) =>
+              currentUnit.connections.some(
+                (connection) => connection.name === trace.connection_name,
+              ),
+            )
+            .flatMap(getCopper)
+        : []
       const sceneCopper = [
+        ...cohortCopper,
         ...fixed,
         ...pairedCopper,
         ...(!unit.pair
@@ -245,11 +283,18 @@ export function* negotiateLanes({
         // Generate rigid paired alternatives independently of provisional
         // lanes; compatibility selection can then move those lanes around the
         // new corridor instead of forcing every retry back to the old topology.
-        const generator = routeCoupledPair(input, unit.pair, fixed, {
-          copper: [],
-          penalty: 0,
-          variant: visit - 1,
-        })
+        const generator = routeCoupledPair(
+          input,
+          unit.pair,
+          negotiateTuning
+            ? [...fixed, ...pairedCopper, ...cohortCopper]
+            : fixed,
+          {
+            copper: negotiateTuning ? routedCopper : [],
+            penalty: negotiateTuning ? congestionPenalty : 0,
+            variant: visit - 1,
+          },
+        )
         let step = generator.next()
         try {
           // The enclosing solver owns the work budget. Fine package searches
@@ -262,7 +307,11 @@ export function* negotiateLanes({
           if (!step.done) step = generator.return(null)
         }
         if (!step.value) {
-          if (previous.length !== unit.connections.length) return null
+          if (previous.length !== unit.connections.length) {
+            if (!negotiateTuning) return null
+            if (!queue.includes(currentUnit)) queue.push(currentUnit)
+            continue routing
+          }
           for (const trace of previous) {
             routed.set(trace.connection_name!, trace)
             const c = unit.connections.find(
@@ -273,7 +322,7 @@ export function* negotiateLanes({
           }
           continue
         }
-        candidates.add(connection.name, step.value)
+        if (!negotiateTuning) candidates.add(connection.name, step.value)
         for (const trace of step.value)
           routed.set(trace.connection_name!, trace)
         continue
@@ -500,12 +549,16 @@ export function* negotiateLanes({
               })),
             },
           }
-          candidates.add(connection.name, [choice.trace])
+          if (!negotiateTuning) candidates.add(connection.name, [choice.trace])
           if (!bestChoice || score < bestChoice.score) bestChoice = choice
         }
       }
       if (!bestChoice) {
-        if (!certificatePaths.length) return null
+        if (!certificatePaths.length) {
+          if (!negotiateTuning) return null
+          if (!queue.includes(currentUnit)) queue.push(currentUnit)
+          continue routing
+        }
         // No candidate in this visit preserves the other terminals. Keep
         // exploring new waypoint/paired alternatives instead of committing a
         // route that closes a neighbor's only exit.
@@ -517,15 +570,64 @@ export function* negotiateLanes({
           for (const point of restored.pointsToConnect)
             point.layer = (trace.route[0] as Wire).layer
         }
-        queue.push(unit)
+        queue.push(negotiateTuning ? currentUnit : unit)
         reportProgress?.(iteration + 1, connections.length - routed.size)
         yield [...paired, ...routed.values()]
         continue routing
       }
       for (const point of connection.pointsToConnect)
         point.layer = (bestChoice.trace.route[0] as Wire).layer
-      candidates.add(connection.name, [bestChoice.trace])
+      if (!negotiateTuning) candidates.add(connection.name, [bestChoice.trace])
       routed.set(connection.name, bestChoice.trace)
+    }
+    if (negotiateTuning) {
+      // Forecast the bank with the existing exact tuner before selecting the
+      // bus. Its actual copper feeds the ordinary congestion/history costs.
+      const names = new Set(
+        currentUnit.connections.map((connection) => connection.name),
+      )
+      const cohortTraces = [...routed.values()].filter((trace) =>
+        names.has(trace.connection_name!),
+      )
+      const soft = [...routed.values()].filter(
+        (trace) => !names.has(trace.connection_name!),
+      )
+      const tuned = negotiateBusTuning({
+        input,
+        traces: cohortTraces,
+        paired,
+        soft,
+      })
+      for (const trace of tuned) routed.set(trace.connection_name!, trace)
+      const local = {
+        ...input,
+        buses: input.buses?.filter((bus) =>
+          bus.connectionNames.some((name) => names.has(name)),
+        ),
+        differentialPairs: input.differentialPairs?.filter((pair) =>
+          pair.connectionNames.some((name) => names.has(name)),
+        ),
+      }
+      const complete = [...paired, ...tuned]
+      const matched =
+        tuned.length === currentUnit.connections.length &&
+        busTuningMatchesTargets(local, complete)
+      const copper = [...fixed, ...complete.flatMap(getCopper)]
+      const clear =
+        matched &&
+        tuned.every((trace) => {
+          const connection = connections.find(
+            (connection) => connection.name === trace.connection_name,
+          )!
+          const width = widths.get(connection.name)!
+          return (
+            new VectorScene(input, connection, width, copper).pathVisible(
+              trace.route,
+            ) && tuningPathIsSelfClear(trace.route, width + clearance)
+          )
+        })
+      if (clear) candidates.add(currentUnit.connections[0].name, tuned)
+      else if (!queue.includes(currentUnit)) queue.push(currentUnit)
     }
     const selected = candidates.select(unitNames, matchingGroups)
     if (selected) {
@@ -533,60 +635,16 @@ export function* negotiateLanes({
       for (const trace of selected) {
         routed.set(trace.connection_name!, trace)
         const connection = connections.find(
-          (c) => c.name === trace.connection_name,
+          (connection) => connection.name === trace.connection_name,
         )!
         for (const point of connection.pointsToConnect)
           point.layer = (trace.route[0] as Wire).layer
       }
-    }
-    const tunedNames = new Set<ConnectionName>()
-    if (negotiateTuning) {
-      const tuning = negotiateBusTuning({
-        input,
-        paired,
-        traces: [...routed.values()],
-      })
-      for (const trace of tuning.traces) {
-        if (trace !== routed.get(trace.connection_name!)) {
-          tunedNames.add(trace.connection_name!)
-          routed.set(trace.connection_name!, trace)
-        }
-      }
-      for (const [name, target] of tuning.minimums)
-        tuningMinimums.set(
-          name,
-          Math.max(tuningMinimums.get(name) ?? 0, target),
-        )
-      if (tuningMinimums.size) {
-        for (const unit of units) {
-          if (
-            unit !== currentUnit &&
-            !unit.connections.some((c) => tuning.minimums.has(c.name))
-          )
-            continue
-          candidates.transformUnit(unit.connections[0].name, (alternatives) =>
-            meetsTuningMinimums({
-              input,
-              traces: alternatives,
-              minimums: tuningMinimums,
-            })
-              ? alternatives
-              : null,
-          )
-          const tuned = unit.connections.flatMap((c) =>
-            routed.has(c.name) ? [routed.get(c.name)!] : [],
-          )
-          if (
-            tuned.length === unit.connections.length &&
-            meetsTuningMinimums({
-              input,
-              traces: tuned,
-              minimums: tuningMinimums,
-            })
-          )
-            candidates.add(unit.connections[0].name, tuned)
-        }
-      }
+      if (
+        negotiateTuning &&
+        busTuningMatchesTargets(input, [...paired, ...selected])
+      )
+        return [...paired, ...selected]
     }
     const pending = new Set<string>()
     const lanes = [...routed.values()]
@@ -627,8 +685,7 @@ export function* negotiateLanes({
     if (pending.size) {
       for (const unit of units) {
         if (
-          (unit === currentUnit && !tunedNames.size) ||
-          unit.connections.some((c) => tunedNames.has(c.name)) ||
+          unit === currentUnit ||
           !unit.connections.some((c) => pending.has(c.name))
         )
           continue
@@ -639,6 +696,13 @@ export function* negotiateLanes({
     if (routed.size > bestCount) {
       bestCount = routed.size
       lastProgress = iteration
+    }
+    if (negotiateTuning) {
+      // Per-wire closure and shortening can destroy an atomic matched bank.
+      // Continue selecting/rerouting complete buses until they are compatible.
+      reportProgress?.(iteration + 1, connections.length - routed.size)
+      yield [...paired, ...routed.values()]
+      continue
     }
     let missing = connections.length - routed.size
     // Fixed-layer repairs cannot explore the alternate planes of flexible
@@ -681,14 +745,7 @@ export function* negotiateLanes({
       } finally {
         if (!step.done) generator.return(null)
       }
-      if (
-        step.value &&
-        meetsTuningMinimums({
-          input,
-          traces: step.value,
-          minimums: tuningMinimums,
-        })
-      ) {
+      if (step.value) {
         routed.clear()
         for (const trace of step.value)
           routed.set(trace.connection_name!, trace)
@@ -726,14 +783,7 @@ export function* negotiateLanes({
       } finally {
         if (!step.done) generator.return(null)
       }
-      if (
-        step.value &&
-        meetsTuningMinimums({
-          input,
-          traces: step.value,
-          minimums: tuningMinimums,
-        })
-      ) {
+      if (step.value) {
         routed.clear()
         for (const trace of step.value) {
           routed.set(trace.connection_name!, trace)
@@ -750,8 +800,7 @@ export function* negotiateLanes({
     if (missing) continue
     const result = [...paired, ...routed.values()]
     for (const trace of routed.values()) {
-      if (trace.coupledSection || tuningMinimums.has(trace.connection_name!))
-        continue
+      if (trace.coupledSection) continue
       const connection = connections.find(
           (c) => c.name === trace.connection_name,
         )!,

@@ -42,7 +42,7 @@ test("ordinary banks respect paired length anchors and immutable fanout copper",
   ]
   const original = structuredClone({ input, paired })
   const proposal = negotiateBusTuning({ input, traces: [straight[0]], paired })
-  const complete = [...proposal.traces, ...paired]
+  const complete = [...proposal, ...paired]
   expect(busLengthReports(input, complete)[0].matched).toBe(true)
   expect(busLengthReports(input, complete)[0].lengths[0].fixedLengthMm).toBe(
     0.5,

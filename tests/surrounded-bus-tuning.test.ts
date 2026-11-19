@@ -9,7 +9,7 @@ import {
   surroundedTuningBus,
 } from "./fixtures/surrounded-tuning-bus"
 
-test("a surrounded bus negotiates its tuning bank with all four neighboring buses", async () => {
+test("five timed buses negotiate room for the surrounded center bus", async () => {
   const input = surroundedTuningBus()
   const before = structuredClone(input)
   const shortest = shortestSurroundingRoutes(input)
@@ -60,7 +60,7 @@ test("a surrounded bus negotiates its tuning bank with all four neighboring buse
     type: "pcb_note_text",
     pcb_note_text_id: "tuning_note",
     pcb_group_id: "board",
-    text: "CENTER: 0.02 mm matching; four untimed neighboring buses remain movable",
+    text: "Five buses: 10/10 connected, each matched within 0.02 mm",
     anchor_position: { x: 5, y: 2.1 },
     anchor_alignment: "center",
     font: "tscircuit2024",
