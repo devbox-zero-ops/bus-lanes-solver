@@ -65,10 +65,16 @@
   },
   "sourcePcbSha256": "000e11b99a3446da47099c9f1c698cb2266668149edc368152b7d63dcc8a530d",
   "capture": {
-    "coreRevision": "824663fa918202485ccb2c2b9df1fd3568117199",
-    "busLanesSolverVersion": "0.0.50",
-    "scope": "First eight DDR data signals from the full reference-board TSX reconstruction; all 760 native pad/hole obstacles and the 34-point board outline retained. Existing copper removed. No invented timing constraints.",
-    "srjSha256": "be13e60e0c8aa896d2c262f6f0c1fcf02ddcacb53bf1c2b710a6c339d5b5d900",
-    "coordinateSystem": "Board-world mm, +X right, +Y up; native PCB centered at the board origin."
+    "tscircuitVersion": "0.0.3271",
+    "coreVersion": "0.0.2450",
+    "coreRevision": "e01d7fb",
+    "busLanesSolverVersion": "0.0.63",
+    "workflow": "https://github.com/tscircuit/tscircuit-autorouter/actions/runs/44944070317",
+    "artifactId": 14723600001,
+    "board": "h616-local",
+    "event": "autorouting:start, first byte0 phase",
+    "scope": "Exact first eight DDR data signals from the original full-board TSX; all 760 native pad/hole obstacles and 38 board-outline vertices. Circuit JSON retains the full board, with emitted routing and errors removed before adding fresh byte0 output.",
+    "srjSha256": "f75b591f250ec3e21e9ef4c080652dfb8b360a4a12bad9e84e6379694817e5e4",
+    "coordinateSystem": "Board-world mm, +X right, +Y up; exact exported coordinates."
   }
 }

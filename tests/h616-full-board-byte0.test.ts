@@ -31,7 +31,7 @@ test("routes H616 byte0 with every full-board obstacle and the native outline", 
   )
   const original = structuredClone(input)
   expect(input.obstacles).toHaveLength(760)
-  expect(input.outline).toHaveLength(34)
+  expect(input.outline).toHaveLength(38)
   expect(input.connections).toHaveLength(8)
   const solver = new BusLanesPipelineSolver(input)
   let boardPointChecks = 0
@@ -79,7 +79,7 @@ test("routes H616 byte0 with every full-board obstacle and the native outline", 
   circuit.push(...solver.traces.map((trace) => pcb_trace.parse(trace)))
   for (const [index, text] of [
     "8/8 signals connected; DRC passed",
-    `Outline point checks: ${boardPointChecks}`,
+    `Full-outline point queries: ${boardPointChecks}`,
     `Distance projections: ${distanceProjections}`,
   ].entries())
     circuit.push({
@@ -99,6 +99,8 @@ test("routes H616 byte0 with every full-board obstacle and the native outline", 
       width: 900,
       height: 1600,
       backgroundColor: "white",
+      showDebugObjects: false,
+      showPcbNotes: true,
       showSolderMask: false,
       shouldDrawRatsNest: false,
       viewport: {
