@@ -74,7 +74,7 @@ export function expectCompletedRouting(
   )
 }
 
-function nativeValidationSrj(input: SimpleRouteJson) {
+export function nativeValidationSrj(input: SimpleRouteJson) {
   return {
     ...input,
     obstacles: input.obstacles.map((obstacle) => ({
