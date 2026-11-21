@@ -1,12 +1,10 @@
-import { BusLanesPipelineSolver, type SimpleRouteJson } from "../../lib"
-import fixture from "./input.json"
+import {
+  populatedInput,
+  solvePopulated,
+} from "../../tests/fixtures/pixel-dash-am3354-populated"
 
-const input = fixture as SimpleRouteJson
-const solver = new BusLanesPipelineSolver(input, {
-  goal: "connectivity",
-  maxRoutingTimeMs: 240_000,
-})
-solver.solve()
+const input = populatedInput()
+const solver = solvePopulated(input)
 
 if (!solver.solved) {
   console.error(solver.error)
