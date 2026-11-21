@@ -447,8 +447,15 @@ export class VectorScene {
       copperRadiusMm: this.width / 2,
     })
   }
-  pathVisible(path: Point[]) {
-    return path.slice(1).every((b, i) => this.visible(path[i], b))
+  pathVisible(path: Point[], isFirstSegmentVisible?: (end: Point) => boolean) {
+    for (let i = 1; i < path.length; i++) {
+      const isVisible =
+        i === 1 && isFirstSegmentVisible
+          ? isFirstSegmentVisible(path[i])
+          : this.visible(path[i - 1], path[i])
+      if (!isVisible) return false
+    }
+    return true
   }
   /** Vertices of circumscribed octagonal Minkowski offsets. Their edges are
    * horizontal, vertical or 45 degrees, including circular vias and trace caps. */

@@ -1,3 +1,4 @@
+import { createSegmentVisibilityChecker } from "./create-segment-visibility-checker"
 import { MinHeap } from "./min-heap"
 import { distance, length, simplify } from "./geometry"
 import { VectorScene } from "./vector-scene"
@@ -107,6 +108,10 @@ export class VectorVisibilitySearch {
       return
     }
     const from = this.vertices[cur.id]
+    const isFirstSegmentVisible = createSegmentVisibilityChecker(
+      this.scene,
+      from,
+    )
     // The visibility graph is implicit: only geometry-derived vertices exist.
     // Each expansion examines whole vector connections, never incremental steps.
     for (let id = 1; id < this.vertices.length; id++) {
@@ -120,7 +125,9 @@ export class VectorVisibilitySearch {
           ? undefined
           : new Map(
               candidates
-                .filter((path) => this.scene.pathVisible(path))
+                .filter((path) =>
+                  this.scene.pathVisible(path, isFirstSegmentVisible),
+                )
                 .map((path) => [path, this.pathCost(path)]),
             )
       if (preferredCosts) candidates = [...preferredCosts.keys()]
@@ -131,7 +138,11 @@ export class VectorVisibilitySearch {
       for (const path of candidates) {
         const g = cur.g + pathCost(path)
         if (g >= (this.best.get(id) ?? Infinity) - 1e-9) continue
-        if (!preferredCosts && !this.scene.pathVisible(path)) continue
+        if (
+          !preferredCosts &&
+          !this.scene.pathVisible(path, isFirstSegmentVisible)
+        )
+          continue
         this.best.set(id, g)
         this.open.push({
           id,
