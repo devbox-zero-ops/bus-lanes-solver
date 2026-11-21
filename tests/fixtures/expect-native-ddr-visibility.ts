@@ -53,7 +53,9 @@ export async function expectNativeDdrVisibility(
   expect(solver.traces).toHaveLength(8)
   const output = solver.getOutput()
   expect(input).toEqual(original)
-  expect(output.traces?.slice(0, input.traces!.length)).toEqual(input.traces)
+  const previousTraces = input.traces ?? []
+  expect(previousTraces).toHaveLength(previousConnections.length)
+  expect(output.traces?.slice(0, previousTraces.length)).toEqual(previousTraces)
   // Core requests only the active byte. Restore the earlier net owners for DRC.
   const connections = [...previousConnections, ...input.connections]
   const validation = {
