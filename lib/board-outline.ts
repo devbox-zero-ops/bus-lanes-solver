@@ -81,21 +81,28 @@ export function boardSegmentIsClear({
     return false
   const ring = input.outline
   if (!ring?.length) return true
-  if (start.x === end.x && start.y === end.y)
-    return (
-      inside(start, ring) &&
-      ring.every(
-        (p, i) =>
-          pointSegmentDistanceToPoints(start, p, ring[(i + 1) % ring.length]) >=
-          margin - epsilon,
-      )
+  const isPoint = start.x === end.x && start.y === end.y
+  if (!inside(start, ring) || (!isPoint && !inside(end, ring))) return false
+  const minX = Math.min(start.x, end.x) - margin,
+    maxX = Math.max(start.x, end.x) + margin,
+    minY = Math.min(start.y, end.y) - margin,
+    maxY = Math.max(start.y, end.y) + margin
+  return ring.every((p, i) => {
+    const q = ring[(i + 1) % ring.length]
+    if (
+      Math.max(p.x, q.x) < minX ||
+      Math.min(p.x, q.x) > maxX ||
+      Math.max(p.y, q.y) < minY ||
+      Math.min(p.y, q.y) > maxY
     )
-  if (!inside(start, ring) || !inside(end, ring)) return false
-  return ring.every(
-    (p, i) =>
-      segmentDistance([start, end], [p, ring[(i + 1) % ring.length]]) >=
-      margin - epsilon,
-  )
+      return true
+    return (
+      (isPoint
+        ? pointSegmentDistanceToPoints(start, p, q)
+        : segmentDistance([start, end], [p, q])) >=
+      margin - epsilon
+    )
+  })
 }
 
 /** Check generated pad approaches and via lands as well as carrier traces. */
