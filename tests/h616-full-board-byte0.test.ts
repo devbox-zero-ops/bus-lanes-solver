@@ -5,6 +5,7 @@ import { gunzipSync } from "node:zlib"
 import { type AnyCircuitElement, pcb_trace } from "circuit-json"
 import { BusLanesPipelineSolver, type SimpleRouteJson } from "../lib"
 import * as boardOutline from "../lib/board-outline"
+import * as geometry from "../lib/geometry"
 import { expectCompletedRouting } from "./fixtures/expect-completed-routing"
 
 test("routes H616 byte0 with every full-board obstacle and the native outline", async () => {
@@ -48,11 +49,22 @@ test("routes H616 byte0 with every full-board obstacle and the native outline", 
       predicate.mockClear()
     return originalBoardSegmentIsClear(query)
   })
+  let distanceProjections = 0
+  const originalPointDistance = geometry.pointSegmentDistanceToPoints
+  const pointDistance = spyOn(
+    geometry,
+    "pointSegmentDistanceToPoints",
+  ).mockImplementation((...points): number => {
+    distanceProjections++
+    if (distanceProjections % 10_000 === 0) pointDistance.mockClear()
+    return originalPointDistance(...points)
+  })
   const started = performance.now()
   try {
     solver.solve()
   } finally {
     predicate.mockRestore()
+    pointDistance.mockRestore()
   }
   console.log(
     `H616 full-board byte0 duration=${((performance.now() - started) / 1000).toFixed(3)}s iterations=${solver.iterations} boardPointChecks=${boardPointChecks} boardSegmentChecks=${boardSegmentChecks}`,
@@ -68,6 +80,7 @@ test("routes H616 byte0 with every full-board obstacle and the native outline", 
   for (const [index, text] of [
     "8/8 signals connected; DRC passed",
     `Outline point checks: ${boardPointChecks}`,
+    `Distance projections: ${distanceProjections}`,
   ].entries())
     circuit.push({
       type: "pcb_note_text",
@@ -88,7 +101,12 @@ test("routes H616 byte0 with every full-board obstacle and the native outline", 
       backgroundColor: "white",
       showSolderMask: false,
       shouldDrawRatsNest: false,
-      viewport: { minX: -14.5, maxX: 14.5, minY: -37, maxY: 41 },
+      viewport: {
+        minX: input.bounds.minX - 1,
+        maxX: input.bounds.maxX + 1,
+        minY: input.bounds.minY - 1,
+        maxY: Math.max(input.bounds.maxY + 1, 41),
+      },
     },
   })
 }, 180_000)
