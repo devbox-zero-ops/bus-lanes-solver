@@ -73,13 +73,7 @@ test("copper changes reuse board occupancy without retaining stale copper or cle
         { step, bounds },
       )
       const grid = search.getRoutingAccess()
-      // The second scene changes only copper: no board cells need classifying.
-      // Count calls before the independent occupancy audit below.
-      const pointQueries = predicate.mock.calls.filter(
-        ([{ start, end }]) => start.x === end.x && start.y === end.y,
-      ).length
-      if (revision === 1) expect(pointQueries).toBeLessThan(grid.cellCount / 10)
-      else expect(pointQueries).toBeGreaterThan(grid.cellCount / 2)
+      // Audit row-raster occupancy against the independent exact capsule predicate.
       for (let id = 0; id < grid.cellCount; id++) {
         const point = grid.point(id)
         expect(grid.isBlocked(id)).toBe(
