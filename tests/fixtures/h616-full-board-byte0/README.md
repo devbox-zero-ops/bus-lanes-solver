@@ -6,8 +6,9 @@ The hardware is licensed under CERN-OHL-P-2.0; its original notice is in
 [LICENSE](LICENSE). Source revisions, hashes and capture scope are recorded in
 [provenance.json](provenance.json).
 
-The unchanged SRJ requests eight DDR data signals and retains all 760 native
-pad/hole obstacles, the 34-point board outline, four layers and 0.2 mm board-edge
+The capture was refreshed using tscircuit 0.0.3271. The SRJ requests eight DDR
+data signals and retains all 760 native pad/hole obstacles, the 38-point board
+outline, four layers and 0.2 mm board-edge
 clearance. Existing copper was removed. The Circuit JSON contains the native
 board, footprints, pads, holes and ports for rendering; it contains no saved
 routes. This exercises one byte in the full board environment, not a complete
@@ -24,10 +25,9 @@ the same snapshot while preserving the completed copper. Mock call history is
 cleared periodically to bound instrumentation memory; reported test durations
 include this instrumentation and are separate from uninstrumented benchmarks.
 
-Profiling the original request found repeated board-outline rasterization in
-`GridVisibilitySearch` dominating the first 200 solver steps: 96.3% of samples
-were in grid construction, including 86.2% in the outline-edge loop. A copper
-change invalidates the combined hard-grid cache even when the board and grid
-are unchanged; each surviving cell also uses a generic segment-distance check
-for a zero-length segment. The stacked fix targets this redundant work while
-preserving exact segment validation and the routed copper.
+The baseline reproduction makes 1,704,029 full-outline point queries during
+its successful byte-zero solve. A complete H616 TSX render constructs two board
+rasters covering 3,407,392 cells. Cells in the same row share their polygon
+crossings and nearby boundary edges; computing that work once per row preserves
+the exact point-clearance predicate. The separate full-TSX replays measure the
+render-time improvement without snapshot instrumentation.
