@@ -1,5 +1,23 @@
 import { expect, test } from "bun:test"
 import { BusLanesSolver } from "../lib"
+import { boardOutlineInput } from "./fixtures/board-outline"
+
+test("draws a rotated rectangular pad at its physical size on each layer", () => {
+  const pad = {
+    center: { x: 2, y: -1 },
+    width: 1.475,
+    height: 0.2,
+    ccwRotationDegrees: 315,
+  }
+  const solver = new BusLanesSolver({
+    ...boardOutlineInput(),
+    obstacles: [{ ...pad, layers: ["top", "bottom"], connectedTo: [] }],
+  })
+  expect(solver.visualize().rects).toMatchObject([
+    { ...pad, layer: "top" },
+    { ...pad, layer: "bottom" },
+  ])
+})
 
 test("AM62L fixed copper is visible at iteration zero and unchanged after a routing attempt", async () => {
   const input = await Bun.file(

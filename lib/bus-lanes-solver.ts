@@ -27,7 +27,12 @@ import {
 } from "./coupled-pair-routing"
 import { reduceOrdinaryTurns } from "./reduce-ordinary-turns"
 import { BaseSolver } from "@tscircuit/solver-utils"
-import type { GraphicsObject } from "graphics-debug"
+import type {
+  GraphicsObject,
+  Line,
+  Point as GraphicsPoint,
+} from "graphics-debug"
+import { getObstacleGraphics } from "./get-obstacle-graphics"
 import type {
   SimpleRouteJson,
   SolverOptions,
@@ -950,43 +955,28 @@ export class BusLanesSolver extends BaseSolver {
     }
   }
   visualize(): GraphicsObject {
-    const lines: any[] = [],
-      points: any[] = [],
-      rects: any[] = [],
-      circles: any[] = []
-    for (const c of fixedCopper(this.input)) {
-      if (c.rect) {
-        rects.push({
-          center: {
-            x: (c.rect.minX + c.rect.maxX) / 2,
-            y: (c.rect.minY + c.rect.maxY) / 2,
-          },
-          width: c.rect.maxX - c.rect.minX,
-          height: c.rect.maxY - c.rect.minY,
-          layer: c.layer,
-          fill: `${layerColor(c.layer)}30`,
-          stroke: layerColor(c.layer),
-        })
-        continue
-      }
-      if (distance(c.a, c.b) < 1e-9)
+    const { rects, circles } = getObstacleGraphics(this.input.obstacles)
+    const lines: Line[] = []
+    const points: GraphicsPoint[] = []
+    for (const copper of fixedCopper({ ...this.input, obstacles: [] })) {
+      if (distance(copper.a, copper.b) < 1e-9)
         circles.push({
-          center: c.a,
-          radius: c.radius,
-          layer: c.layer,
+          center: copper.a,
+          radius: copper.radius,
+          layer: copper.layer,
           fill: "transparent",
-          stroke: layerColor(c.layer),
+          stroke: layerColor(copper.layer),
         })
       else
         lines.push({
           points: [
-            { x: c.a.x, y: c.a.y },
-            { x: c.b.x, y: c.b.y },
+            { x: copper.a.x, y: copper.a.y },
+            { x: copper.b.x, y: copper.b.y },
           ],
-          strokeWidth: c.radius * 2,
-          strokeColor: layerColor(c.layer),
-          layer: c.layer,
-          label: `Fixed fanout [${c.layer}]`,
+          strokeWidth: copper.radius * 2,
+          strokeColor: layerColor(copper.layer),
+          layer: copper.layer,
+          label: `Fixed fanout [${copper.layer}]`,
         })
     }
     for (const t of this.traces)
