@@ -40,6 +40,11 @@ test("ButterStick pending native-pad access after RAM branches", async (): Promi
   expect(solver.error).toBeNull()
   expect(inputSrj).toEqual(original)
 
+  for (const trace of solver.traces) {
+    expect(trace.connectsTo).toBeUndefined()
+    expect(trace.allowedLayers).toBeUndefined()
+  }
+
   const traces = solver.traces.map((trace) => {
     if (!trace.connection_name) throw Error("Completed DDR trace has no owner")
     return { ...trace, connection_name: trace.connection_name }

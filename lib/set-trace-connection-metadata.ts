@@ -12,6 +12,9 @@ export function setTraceConnectionMetadata({
   traces: Trace[]
 }): void {
   for (const trace of traces) {
+    // A private two-terminal branch does not describe the original connection.
+    delete trace.connectsTo
+    delete trace.allowedLayers
     const connection = input.connections.find(
       (connection) => connection.name === trace.connection_name,
     )
@@ -22,7 +25,7 @@ export function setTraceConnectionMetadata({
     const endpoints = [...connection.pointsToConnect].sort(
       (left, right) => distance(left, start) - distance(right, start),
     )
-    trace.connectsTo ??= endpoints.flatMap((point) => {
+    trace.connectsTo = endpoints.flatMap((point) => {
       if (point.pcb_port_id) return [point.pcb_port_id]
       return []
     })
@@ -33,13 +36,6 @@ export function setTraceConnectionMetadata({
     )
     if (!hasBusLayerConstraints) continue
 
-    const traceAllowedLayers = trace.allowedLayers
-    let allowedLayers = effectiveCarrierLayers(input, connection)
-    if (traceAllowedLayers) {
-      allowedLayers = allowedLayers.filter((layer) =>
-        traceAllowedLayers.includes(layer),
-      )
-    }
-    trace.allowedLayers = allowedLayers
+    trace.allowedLayers = effectiveCarrierLayers(input, connection)
   }
 }
