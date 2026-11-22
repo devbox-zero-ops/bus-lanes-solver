@@ -1,4 +1,5 @@
 import { effectiveCarrierLayers } from "./effective-carrier-layers"
+import { setTraceConnectionMetadata } from "./set-trace-connection-metadata"
 import { nativeGroupsEligible, routeNativeGroups } from "./route-native-groups"
 import {
   pinnedNativeBusesEligible,
@@ -401,6 +402,7 @@ export class BusLanesPipelineSolver extends BaseSolver {
     )
       throw Error("Final pad-to-pad signal geometry is invalid")
     this.traces = structuredClone(this.acceptedTraces)
+    setTraceConnectionMetadata({ input: this.input, traces: this.traces })
     this.solved = true
     this.failed = false
     this.error = null
@@ -1376,6 +1378,7 @@ export class BusLanesPipelineSolver extends BaseSolver {
       this.error = solver.error
       if (solver.solved) {
         this.traces = structuredClone(solver.traces)
+        setTraceConnectionMetadata({ input: this.input, traces: this.traces })
         this.solved = true
       }
       return

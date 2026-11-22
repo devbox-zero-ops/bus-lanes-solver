@@ -58,4 +58,9 @@ test("routes the real A13 CPU-side DDR byte beside its rotated pads", async (): 
   })
   expect(solver.error).toBeNull()
   expect(solver.solved).toBe(true)
+  const ddrTrace = solver.traces.find(
+    (trace) => trace.connection_name === "source_trace_27",
+  )!
+  expect(ddrTrace.connectsTo).toEqual(["pcb_port_20", "pcb_port_223"])
+  expect(ddrTrace.allowedLayers).toEqual(["top", "bottom"])
 })
