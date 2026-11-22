@@ -27,13 +27,11 @@ export function setTraceConnectionMetadata({
       return []
     })
 
-    const hasLayerConstraints =
-      input.allowedLayers !== undefined ||
-      input.buses?.some(
-        (bus) =>
-          bus.allowedLayers && bus.connectionNames.includes(connection.name),
-      )
-    if (!hasLayerConstraints) continue
+    const hasBusLayerConstraints = input.buses?.some(
+      (bus) =>
+        bus.allowedLayers && bus.connectionNames.includes(connection.name),
+    )
+    if (!hasBusLayerConstraints) continue
 
     const traceAllowedLayers = trace.allowedLayers
     let allowedLayers = effectiveCarrierLayers(input, connection)
