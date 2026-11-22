@@ -1671,8 +1671,9 @@ export class BusLanesPipelineSolver extends BaseSolver {
       )
     )
       throw Error("Final full-copper bus length violation")
-    this.traces = traces
-    this.acceptedTraces = structuredClone(traces)
+    this.traces = structuredClone(traces)
+    setTraceConnectionMetadata({ input: this.input, traces: this.traces })
+    this.acceptedTraces = structuredClone(this.traces)
     this.phase = "optimize_envelope"
     this.envelopeOptimization = this.optimizeEnvelope()
   }
