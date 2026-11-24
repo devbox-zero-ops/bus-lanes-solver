@@ -64,6 +64,8 @@ export interface Obstacle {
   height: number
   layers: string[]
   connectedTo: string[]
+  /** Unbroken pour reservation. Crossing vias of other nets receive antipads. */
+  isCopperPour?: boolean
 }
 /** Structural SimpleRouteJson boundary; unknown routing primitives are rejected. */
 export interface SimpleRouteJson {
